@@ -12,5 +12,23 @@ CMPT419 Project
 }
 
 
-:: Untitled Passage {"position":"900,350","size":"100,100"}
+:: Intro {"position":"900,400","size":"100,100"}
+[[Path 1]] or [[Path 2]] or [[Path 3]]
+
+
+:: Path 1 {"position":"700,575","size":"100,100"}
+
+
+
+:: Path 2 {"position":"900,575","size":"100,100"}
+
+
+
+:: Path 3 {"position":"1100,575","size":"100,100"}
+
+
+
+:: Untitled Passage {"position":"900,250","size":"100,100"}
 Welcome to our class project!
+
+[[Start->Intro]]
