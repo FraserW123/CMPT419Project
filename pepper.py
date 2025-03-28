@@ -102,7 +102,7 @@ class ArmGestureNet(nn.Module):
 # Add after MediaPipe initialization
 model_path = "arm_gesture_landmark_model.pth"
 model = ArmGestureNet(input_size=18)
-model.load_state_dict(torch.load(model_path))
+model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
 model.eval()
 
 # Detects Left, Right, and Both arms gestures using mediapipe
@@ -148,13 +148,13 @@ def detect_gesture(landmarks):
         
         # Convert to tensor and predict
         with torch.no_grad():
-            input_tensor = torch.tensor(landmark_vector, dtype=torch.float32)
+            input_tensor = torch.tensor(landmark_vector, dtype=torch.float32).unsqueeze(0)
             output = model(input_tensor)
-            probabilities = torch.softmax(output, dim=0)
-            conf, predicted = torch.max(probabilities, 0)
+            probabilities = torch.softmax(output, dim=1)
+            conf, predicted = torch.max(probabilities, 1)
             
             # Add confidence threshold
-            if conf < 0.8:  # Adjust threshold as needed
+            if conf < 0.9:  # Adjust threshold as needed
                 return None
         
         # Map model output to labels
