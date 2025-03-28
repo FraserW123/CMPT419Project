@@ -8,6 +8,7 @@ import logging
 import csv
 from datetime import datetime
 import os
+from story import Story
 
 import torch
 import torch.nn as nn
@@ -68,11 +69,11 @@ tts = app.session.service("ALTextToSpeech")
 motion = app.session.service("ALMotion")
 autonomous_life = app.session.service("ALAutonomousLife")
 
-autonomous_life.setState("disabled")  # Disable autonomous behaviors
+#autonomous_life.setState("disabled")  # Disable autonomous behaviors
 
 # Set Pepper's head to look up (HeadPitch angle in radians)
-motion.setStiffnesses("Head", 1.0)  # Enable motor stiffness
-motion.setAngles("HeadPitch", -0.5, 0.2)  # Tilt head up (adjust -0.3 as needed)
+# motion.setStiffnesses("Head", 1.0)  # Enable motor stiffness
+# motion.setAngles("HeadPitch", -0.5, 0.2)  # Tilt head up (adjust -0.3 as needed)
 
 # Camera setup
 resolution = 3  # VGA (640x480)
@@ -104,6 +105,17 @@ model_path = "arm_gesture_landmark_model.pth"
 model = ArmGestureNet(input_size=18)
 model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
 model.eval()
+
+def signal_left(motion):
+    motion.setStiffnesses("LArm", 1.0)
+    motion.setAngles(["LShoulderPitch", "LShoulderRoll"], [-0.75,1], 0.4)
+
+def signal_right(motion):
+    #motion.setStiffnesses("RArm", 1.0)
+    motion.setAngles(["RShoulderPitch", "RShoulderRoll"], [-0.75,-1], 0.4)
+
+def signal_both(motion):
+    motion.setAngles(["RShoulderPitch", "LShoulderPitch", "RShoulderRoll", "LShoulderRoll"], [-0.75, -0.75,-1,1], 0.4)
 
 # Detects Left, Right, and Both arms gestures using mediapipe
 # Checks to see if wrists is above shoulders
@@ -166,25 +178,41 @@ def detect_gesture(landmarks):
         return None
 
 # Choose your own adventure story
+story_mode = Story()
 story = {
     "start": {
-        "text": "Welcome to the adventure! Raise your left or right arm to choose your path.",
+        "text": story_mode.townspeople()[0],
+        "path1": story_mode.townspeople()[1],
+        "path2": story_mode.townspeople()[2],
+        "path3": story_mode.townspeople()[3],
         "choices": {
             "left": "left",
             "right": "right.",
             "stop": "botha"
         }
+        
+        
     }
 }
 
 # Gesture Detection Cooldown 
 LAST_DETECTION_TIME = 0
-COOLDOWN = 10.0
+COOLDOWN = 5.0
 
 try:
     current_state = "start"
-    tts.say(story[current_state]["text"])
-    
+    #tts.say(story[current_state]["text"])
+    #tts.say("Start")
+    tts.say(story[current_state]["path1"])
+    signal_left(motion)
+    time.sleep(5)
+    tts.say(story[current_state]["path2"])
+    signal_right(motion)
+    time.sleep(5)
+    if story[current_state]["path3"]:
+        tts.say(story[current_state]["path3"])
+        signal_both(motion)
+    time.sleep(3)
     while True:
         gesture = None
         naoImage = video_service.getImageRemote(subscriberId)
