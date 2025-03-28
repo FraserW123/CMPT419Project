@@ -9,6 +9,9 @@ import csv
 from datetime import datetime
 import os
 
+import torch
+import torch.nn as nn
+
 # Initialize CSV with participant columns (change participant column to just an ID column)
 participant_id = input("Enter participant ID: ").strip() or "unknown"
 
@@ -78,10 +81,34 @@ fps = 15
 cameraId = 0  # Top camera
 subscriberId = video_service.subscribeCamera("videoSubscriber", cameraId, resolution, colorSpace, fps)
 
+# Arm gesture model class definition
+class ArmGestureNet(nn.Module):
+    def __init__(self, input_size=18, num_classes=3):
+        super(ArmGestureNet, self).__init__()
+        self.fc1 = nn.Linear(input_size, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, num_classes)
+        self.dropout = nn.Dropout(0.4)
+        self.batchnorm = nn.BatchNorm1d(128)
+        
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        x = self.batchnorm(x)
+        x = self.dropout(x)
+        x = torch.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+# Add after MediaPipe initialization
+model_path = "arm_gesture_landmark_model.pth"
+model = ArmGestureNet(input_size=18)
+model.load_state_dict(torch.load(model_path))
+model.eval()
+
 # Detects Left, Right, and Both arms gestures using mediapipe
 # Checks to see if wrists is above shoulders
 def detect_gesture(landmarks):
-    try:
+    """ try:
         left_wrist = landmarks[mp_pose.PoseLandmark.LEFT_WRIST]
         right_wrist = landmarks[mp_pose.PoseLandmark.RIGHT_WRIST]
         left_shoulder = landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER]
@@ -102,6 +129,40 @@ def detect_gesture(landmarks):
         return None
     except Exception as e:
         logging.error(f"Gesture detection failed: {str(e)}")
+        return None """
+    try:
+        # Extract the same landmarks used in training
+        landmark_indices = [
+            mp_pose.PoseLandmark.LEFT_SHOULDER,
+            mp_pose.PoseLandmark.RIGHT_SHOULDER,
+            mp_pose.PoseLandmark.LEFT_ELBOW,
+            mp_pose.PoseLandmark.RIGHT_ELBOW,
+            mp_pose.PoseLandmark.LEFT_WRIST,
+            mp_pose.PoseLandmark.RIGHT_WRIST
+        ]
+        
+        landmark_vector = []
+        for idx in landmark_indices:
+            lmk = landmarks[idx]
+            landmark_vector.extend([lmk.x, lmk.y, lmk.z])
+        
+        # Convert to tensor and predict
+        with torch.no_grad():
+            input_tensor = torch.tensor(landmark_vector, dtype=torch.float32)
+            output = model(input_tensor)
+            probabilities = torch.softmax(output, dim=0)
+            conf, predicted = torch.max(probabilities, 0)
+            
+            # Add confidence threshold
+            if conf < 0.8:  # Adjust threshold as needed
+                return None
+        
+        # Map model output to labels
+        label_map = {0: "left", 1: "right", 2: "stop"}
+        return label_map[predicted.item()]
+        
+    except Exception as e:
+        logging.error(f"Model prediction failed: {str(e)}")
         return None
 
 # Choose your own adventure story
@@ -111,7 +172,7 @@ story = {
         "choices": {
             "left": "You chose the left path! A dragon appears...",
             "right": "You chose the right path! A treasure awaits...",
-            "both": "Secret path unlocked! You find a magic portal."
+            "stop": "Secret path unlocked! You find a magic portal."
         }
     }
 }
