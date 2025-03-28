@@ -77,7 +77,7 @@ motion.setAngles("HeadPitch", -0.5, 0.2)  # Tilt head up (adjust -0.3 as needed)
 # Camera setup
 resolution = 3  # VGA (640x480)
 colorSpace = 13  # BGR
-fps = 15
+fps = 25
 cameraId = 0  # Top camera
 subscriberId = video_service.subscribeCamera("videoSubscriber", cameraId, resolution, colorSpace, fps)
 
@@ -170,12 +170,16 @@ story = {
     "start": {
         "text": "Welcome to the adventure! Raise your left or right arm to choose your path.",
         "choices": {
-            "left": "You chose the left path! A dragon appears...",
-            "right": "You chose the right path! A treasure awaits...",
-            "stop": "Secret path unlocked! You find a magic portal."
+            "left": "left",
+            "right": "right.",
+            "stop": "botha"
         }
     }
 }
+
+# Gesture Detection Cooldown 
+LAST_DETECTION_TIME = 0
+COOLDOWN = 10.0
 
 try:
     current_state = "start"
@@ -205,24 +209,28 @@ try:
             # mp_drawing.draw_landmarks(
             #     img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
             
-            # Detect gesture
-            gesture = detect_gesture(results.pose_landmarks.landmark)
+            current_time = time.time()
+            if (current_time - LAST_DETECTION_TIME) > COOLDOWN:
+                # Detect gesture
+                gesture = detect_gesture(results.pose_landmarks.landmark)
 
-            # Get raw landmark data
-            raw_landmarks = [[lmk.x, lmk.y, lmk.z] for lmk in results.pose_landmarks.landmark]
-            
-            if gesture and gesture in story[current_state]["choices"]:
-                response = story[current_state]["choices"][gesture]
-                tts.say(response)
-                logging.info(f"Detected gesture: {gesture}")
-                logging.info(f"Pepper responded: {response} to gesture: {gesture}")
+                # Get raw landmark data
+                raw_landmarks = [[lmk.x, lmk.y, lmk.z] for lmk in results.pose_landmarks.landmark]
+                
+                
+                if gesture and gesture in story[current_state]["choices"]:
+                    LAST_DETECTION_TIME = current_time
+                    response = story[current_state]["choices"][gesture]
+                    tts.say(response)
+                    logging.info(f"Detected gesture: {gesture}")
+                    logging.info(f"Pepper responded: {response} to gesture: {gesture}")
 
-                # Save to CSV with timestamp
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-                csv_writer.writerow([timestamp, participant_id, gesture, str(raw_landmarks)])
-                csv_file.flush()  # Ensure immediate write
+                    # Save to CSV with timestamp
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+                    csv_writer.writerow([timestamp, participant_id, gesture, str(raw_landmarks)])
+                    csv_file.flush()  # Ensure immediate write
 
-                break  # Exit after first choice (or modify for multi-step story)
+                    #break  # Exit after first choice (or modify for multi-step story)
         else: 
             logging.warning("No landmarks detected in frame")
 
