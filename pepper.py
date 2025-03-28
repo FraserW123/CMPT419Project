@@ -5,7 +5,21 @@ import cv2
 import numpy as np
 import mediapipe as mp
 import logging
+import csv
+from datetime import datetime
+import os
 
+# Initialize CSV with participant columns (change participant column to just an ID column)
+participant_id = input("Enter participant ID: ").strip() or "unknown"
+
+# CSV 
+csv_file = open('gesture_dataset.csv', 'a', newline='')
+csv_writer = csv.writer(csv_file)
+if os.stat('gesture_dataset.csv').st_size == 0:
+    csv_writer.writerow(['timestamp', 'participant_id', 
+                    'gesture', 'landmarks'])
+
+# Logging settings
 logging.basicConfig(
     filename='gesture_logs.log',
     level=logging.INFO,
@@ -64,6 +78,8 @@ fps = 15
 cameraId = 0  # Top camera
 subscriberId = video_service.subscribeCamera("videoSubscriber", cameraId, resolution, colorSpace, fps)
 
+# Detects Left, Right, and Both arms gestures using mediapipe
+# Checks to see if wrists is above shoulders
 def detect_gesture(landmarks):
     try:
         left_wrist = landmarks[mp_pose.PoseLandmark.LEFT_WRIST]
@@ -88,6 +104,7 @@ def detect_gesture(landmarks):
         logging.error(f"Gesture detection failed: {str(e)}")
         return None
 
+# Choose your own adventure story
 story = {
     "start": {
         "text": "Welcome to the adventure! Raise your left or right arm to choose your path.",
@@ -121,20 +138,29 @@ try:
         # Process with MediaPipe
         results = pose.process(rgb_img)
         
-        
+
         if results.pose_landmarks:
-            logging.info("Landmarks detected")
-            # Draw landmarks (optional)
-            mp_drawing.draw_landmarks(
-                img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+            # Draw landmarks (optional) - adds the landmarks on the camera pop up
+            # mp_drawing.draw_landmarks(
+            #     img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
             
             # Detect gesture
             gesture = detect_gesture(results.pose_landmarks.landmark)
+
+            # Get raw landmark data
+            raw_landmarks = [[lmk.x, lmk.y, lmk.z] for lmk in results.pose_landmarks.landmark]
             
             if gesture and gesture in story[current_state]["choices"]:
                 response = story[current_state]["choices"][gesture]
                 tts.say(response)
+                logging.info(f"Detected gesture: {gesture}")
                 logging.info(f"Pepper responded: {response} to gesture: {gesture}")
+
+                # Save to CSV with timestamp
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+                csv_writer.writerow([timestamp, participant_id, gesture, str(raw_landmarks)])
+                csv_file.flush()  # Ensure immediate write
+
                 break  # Exit after first choice (or modify for multi-step story)
         else: 
             logging.warning("No landmarks detected in frame")
@@ -149,6 +175,7 @@ try:
             break
 
 finally:
+    csv_file.close()
     video_service.unsubscribe(subscriberId)
     motion.setStiffnesses("Head", 0.0)  # Relax head motors
     cv2.destroyAllWindows()
