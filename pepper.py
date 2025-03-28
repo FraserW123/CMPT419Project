@@ -220,12 +220,13 @@ try:
         count = 0
         for prompt in current_scene["prompts"]:
             tts.say(prompt)
-            if count == 1:
+            if count == 0:
                 signal_left(motion)
-            elif count == 2:
+            elif count == 1:
                 signal_right(motion)
             else:
                 signal_both(motion)
+            count+=1
             time.sleep(5)
 
 
@@ -271,9 +272,10 @@ try:
                     raw_landmarks = [[lmk.x, lmk.y, lmk.z] for lmk in results.pose_landmarks.landmark]
                     
                     
-                    if gesture and gesture in story[current_state]["choices"]:
+                    if gesture and gesture in current_scene["gestures"]:
                         LAST_DETECTION_TIME = current_time
-                        response = story[current_state]["choices"][gesture]
+                        response = current_scene["gestures"][gesture]
+                        print(response)
                         tts.say(response)
                         logging.info(f"Detected gesture: {gesture}")
                         logging.info(f"Pepper responded: {response} to gesture: {gesture}")
