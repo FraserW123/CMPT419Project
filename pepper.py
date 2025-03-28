@@ -179,7 +179,8 @@ def detect_gesture(landmarks):
 
 # Choose your own adventure story
 story_mode = Story()
-story = {
+current_scene = story_mode.get_current_scene()
+""" story = {
     "start": {
         "text": story_mode.townspeople()[0],
         "path1": story_mode.townspeople()[1],
@@ -193,14 +194,14 @@ story = {
         
         
     }
-}
+} """
 
 # Gesture Detection Cooldown 
 LAST_DETECTION_TIME = 0
 COOLDOWN = 5.0
 
 try:
-    current_state = "start"
+    """ current_state = "start"
     #tts.say(story[current_state]["text"])
     #tts.say("Start")
     tts.say(story[current_state]["path1"])
@@ -212,64 +213,88 @@ try:
     if story[current_state]["path3"]:
         tts.say(story[current_state]["path3"])
         signal_both(motion)
-    time.sleep(3)
+    time.sleep(3) """
+
     while True:
+        tts.say(current_scene["passage"])
+        count = 0
+        for prompt in current_scene["prompts"]:
+            tts.say(prompt)
+            if count == 1:
+                signal_left(motion)
+            elif count == 2:
+                signal_right(motion)
+            else:
+                signal_both(motion)
+            time.sleep(5)
+
+
         gesture = None
-        naoImage = video_service.getImageRemote(subscriberId)
-        if naoImage is None:
-            logging.error("Failed to capture frame from Pepper's camera")
-            continue
+        start_time = time.time()
+        while time.time() - start_time < 30:  # 30 second timeout
+            # Capture frame and detect gesture
+            if gesture in current_scene["gestures"]:
+                current_scene = story_mode.transition(gesture)
+                if not current_scene["gestures"]:  # Ending reached
+                    tts.say(current_scene["passage"])
+                    sys.exit(0)
+                break
+                
+            naoImage = video_service.getImageRemote(subscriberId)
+            if naoImage is None:
+                logging.error("Failed to capture frame from Pepper's camera")
+                continue
 
-        # Convert image to OpenCV format
-        width, height = naoImage[0], naoImage[1]
-        array = naoImage[6]
-        img = np.frombuffer(array, dtype=np.uint8).reshape((height, width, 3))
-        
-        # Convert BGR to RGB for MediaPipe
-        rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        
-        # Process with MediaPipe
-        results = pose.process(rgb_img)
-        
-
-        if results.pose_landmarks:
-            # Draw landmarks (optional) - adds the landmarks on the camera pop up
-            # mp_drawing.draw_landmarks(
-            #     img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+            # Convert image to OpenCV format
+            width, height = naoImage[0], naoImage[1]
+            array = naoImage[6]
+            img = np.frombuffer(array, dtype=np.uint8).reshape((height, width, 3))
             
-            current_time = time.time()
-            if (current_time - LAST_DETECTION_TIME) > COOLDOWN:
-                # Detect gesture
-                gesture = detect_gesture(results.pose_landmarks.landmark)
+            # Convert BGR to RGB for MediaPipe
+            rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            
+            # Process with MediaPipe
+            results = pose.process(rgb_img)
+            
 
-                # Get raw landmark data
-                raw_landmarks = [[lmk.x, lmk.y, lmk.z] for lmk in results.pose_landmarks.landmark]
+            if results.pose_landmarks:
+                # Draw landmarks (optional) - adds the landmarks on the camera pop up
+                # mp_drawing.draw_landmarks(
+                #     img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
                 
-                
-                if gesture and gesture in story[current_state]["choices"]:
-                    LAST_DETECTION_TIME = current_time
-                    response = story[current_state]["choices"][gesture]
-                    tts.say(response)
-                    logging.info(f"Detected gesture: {gesture}")
-                    logging.info(f"Pepper responded: {response} to gesture: {gesture}")
+                current_time = time.time()
+                if (current_time - LAST_DETECTION_TIME) > COOLDOWN:
+                    # Detect gesture
+                    gesture = detect_gesture(results.pose_landmarks.landmark)
 
-                    # Save to CSV with timestamp
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-                    csv_writer.writerow([timestamp, participant_id, gesture, str(raw_landmarks)])
-                    csv_file.flush()  # Ensure immediate write
+                    # Get raw landmark data
+                    raw_landmarks = [[lmk.x, lmk.y, lmk.z] for lmk in results.pose_landmarks.landmark]
+                    
+                    
+                    if gesture and gesture in story[current_state]["choices"]:
+                        LAST_DETECTION_TIME = current_time
+                        response = story[current_state]["choices"][gesture]
+                        tts.say(response)
+                        logging.info(f"Detected gesture: {gesture}")
+                        logging.info(f"Pepper responded: {response} to gesture: {gesture}")
 
-                    #break  # Exit after first choice (or modify for multi-step story)
-        else: 
-            logging.warning("No landmarks detected in frame")
+                        # Save to CSV with timestamp
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+                        csv_writer.writerow([timestamp, participant_id, gesture, str(raw_landmarks)])
+                        csv_file.flush()  # Ensure immediate write
 
-        # Add text overlay for detected gesture
-        cv2.putText(img, f"Gesture: {gesture}", (10, 30), 
-            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                        #break  # Exit after first choice (or modify for multi-step story)
+            else: 
+                logging.warning("No landmarks detected in frame")
 
-        # Display preview (optional)
-        cv2.imshow('Pepper Camera', img)
-        if cv2.waitKey(1) & 0xFF == 27:  # ESC to exit
-            break
+            # Add text overlay for detected gesture
+            cv2.putText(img, f"Gesture: {gesture}", (10, 30), 
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+            # Display preview (optional)
+            cv2.imshow('Pepper Camera', img)
+            if cv2.waitKey(1) & 0xFF == 27:  # ESC to exit
+                break
 
 finally:
     csv_file.close()
