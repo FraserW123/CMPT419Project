@@ -1,7 +1,7 @@
 class Story():
     def __init__(self):
         #self.done = False
-        self.current_state = "introduction"
+        self.current_state = "sword"
         self.states = {
             "introduction": self.introduction,
             "townspeople": self.townspeople,
@@ -146,7 +146,16 @@ class Story():
             "sneak":{
                 "left": "fight_alongside",
                 "right": "leave"
+            },
+            "fight_alongside":{
+            },
+            "leave":{
+            },
+            "toss":{
+            },
+            "dodge":{
             }
+
 
 
 
@@ -350,46 +359,40 @@ class Story():
     
     def disable(self):
         return{
-            "passage": "end",
+            "passage": "end1",
             "prompts": [
-                "Find the trigger and disable it",
-                "Crawl under the spears"
+                "end"
             ],
-            "gestures": ["left", "right"]
+            "gestures": []
 
         }
     
     def crawl(self):
         return{
-            "passage": "end",
+            "passage": "end2",
             "prompts": [
-                "Find the trigger and disable it",
-                "Crawl under the spears"
+                "end"
             ],
-            "gestures": ["left", "right"]
+            "gestures": []
 
         }
     
     def dodge(self):
         return{
-            "passage": "end",
+            "passage": "end3",
             "prompts": [
-                "Find the trigger and disable it",
-                "Crawl under the spears"
+                "end"
             ],
-            "gestures": ["left", "right"]
-
+            "gestures": []
         }
     
     def toss(self):
         return{
-            "passage": "end",
+            "passage": "end4",
             "prompts": [
-                "Find the trigger and disable it",
-                "Crawl under the spears"
+                "end"
             ],
-            "gestures": ["left", "right"]
-
+            "gestures": []
         }
     
     def sword(self):
@@ -416,23 +419,21 @@ class Story():
 
     def fight_alongside(self):
         return{
-            "passage": "end",
+            "passage": "end5",
             "prompts": [
-                "Fight alongside your crew",
-                "Leave your crew to distract the beast"
+                "end"
             ],
-            "gestures": ["left", "right"]
+            "gestures": []
 
         }
 
     def leave(self):
             return{
-                "passage": "end",
+                "passage": "end6",
                 "prompts": [
-                    "Fight alongside your crew",
-                    "Leave your crew to distract the beast"
+                    "end"
                 ],
-                "gestures": ["left", "right"]
+                "gestures": []
 
             }
         

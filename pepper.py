@@ -214,11 +214,15 @@ try:
         tts.say(story[current_state]["path3"])
         signal_both(motion)
     time.sleep(3) """
-    ending_states = ["leave", "fight_alongside", "crawl", "disable", "toss", "dodge"]
-    while True:
+    done = False
+    while not done:
+        print("Start")
+        print("ok ", current_scene)
         tts.say(current_scene["passage"])
-        if current_scene in ending_states:
-            print("Done")
+        if current_scene["prompts"][0] == "end":
+            print("Done 1")
+            tts.say("Thank you!")
+            done = True
             break
 
         count = 0
@@ -240,9 +244,12 @@ try:
             # Capture frame and detect gesture
             if gesture in current_scene["gestures"]:
                 current_scene = story_mode.transition(gesture)
-                if not current_scene["gestures"]:  # Ending reached
-                    tts.say(current_scene["passage"])
-                    sys.exit(0)
+                # if not current_scene["gestures"]:  # Ending reached
+                #     print("done 2")
+                #     tts.say(current_scene["passage"])
+                #     done = True
+                #     sys.exit(0)
+                #     break
                 break
                 
             naoImage = video_service.getImageRemote(subscriberId)
