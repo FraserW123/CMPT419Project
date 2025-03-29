@@ -214,9 +214,13 @@ try:
         tts.say(story[current_state]["path3"])
         signal_both(motion)
     time.sleep(3) """
-
+    ending_states = ["leave", "fight_alongside", "crawl", "disable", "toss", "dodge"]
     while True:
         tts.say(current_scene["passage"])
+        if current_scene in ending_states:
+            print("Done")
+            break
+
         count = 0
         for prompt in current_scene["prompts"]:
             tts.say(prompt)
@@ -274,7 +278,7 @@ try:
                     
                     if gesture and gesture in current_scene["gestures"]:
                         LAST_DETECTION_TIME = current_time
-                        response = current_scene["gestures"][gesture]
+                        response = gesture
                         print(response)
                         tts.say(response)
                         logging.info(f"Detected gesture: {gesture}")
