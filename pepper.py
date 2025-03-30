@@ -65,6 +65,7 @@ print("Connected to Pepper")
 
 # Get services
 video_service = app.session.service("ALVideoDevice")
+#tts = app.session.service("ALTextToSpeech")
 tts = app.session.service("ALTextToSpeech")
 motion = app.session.service("ALMotion")
 autonomous_life = app.session.service("ALAutonomousLife")

@@ -165,7 +165,7 @@ class Story():
     
     def introduction(self):
         return {
-            "passage": "You're setting off on your own Pirate Adventure where exploration and treasures await! Somewhere beyond the horizon, "
+            "passage": "\\VCT=80\\ \\style=joyful\\ You're setting off on your own Pirate Adventure where exploration and treasures await! Somewhere beyond the horizon, "
                     "a legendary treasure lies hidden, waiting to be claimed. But treasure hunting isn't just about sailing blindly into the unknown, "
                     "you need information and strategy to outsmart the dangers that lurk ahead. With time running short, you must decide. "
                     "Do you want to talk to townspeople for information or spy on rival pirates?",
@@ -182,7 +182,7 @@ class Story():
                     "of fortune, danger, and secrets buried in riddles. " \
                     "Perhaps one of them can point you in the right direction. You step into a dimly lit tavern, where an old sailor " \
                     "with a glass eye beckons you closer. He offers a riddle, hinting at a safe but unpredictable voyage. Solve it, " \
-                    "and you'll have a solid course to follow. He clears his throat and begins. " \
+                    "and you'll have a solid course to follow. He clears his throat and begins. \pau=350\ " \
                     "I have seas without water, " \
                     "coasts without sand, " \
                     "towns without people, and " \
@@ -199,7 +199,7 @@ class Story():
     def mirage(self):
         return {
             "passage": "Not quite, matey. That answer be as lost as a ship with no compass. "
-            "Here is the riddle again I have seas without water, coasts without sand, towns "
+            "Here is the riddle again. I have seas without water, coasts without sand, towns "
             "without people and mountains without land without land. What am I?",
 
             "prompts": [
@@ -250,9 +250,9 @@ class Story():
             "you hack at the tentacles with your blade, dodging as they slam into the ship. After a fierce fight, the creature lets out a "
             "final, pained wail before sinking into the sea. The crew cheers, though the ship has taken damage. You patch up the hull and "
             "continue toward Treasure Island. After days at sea the sight of land on the horizon fills your weary crew with renewed energy. "
-            "Treasure Island! Your ship anchors just off the rocky shore of Treasure Island. The air is thick with the scent of sulfur, and "
-            "dark smoke rises from the towering volcano at the island's center. The moment your boots hit the sand, you hear rustling from "
-            "the dense jungle ahead. Do you:",
+            "Treasure Island! ^runSound(soundSet/soundFile, soundVolume) Your ship anchors just off the rocky shore of Treasure Island. "
+            "The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center. The moment "
+            "your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:",
             "prompts": [
                 "Investigate the rustling",
                 "Head straight for the volcano caves"
