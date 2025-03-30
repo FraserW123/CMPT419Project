@@ -165,8 +165,10 @@ class Story():
     
     def introduction(self):
         return {
-            "passage": "Intro",#"You're setting off on your own Pirate Adventure where exploration and treasures await! Somewhere beyond the horizon, a legendary treasure lies hidden, waiting to be claimed. But treasure hunting isn't just about sailing blindly into the unknown, you need information and strategy to outsmart the dangers that lurk ahead. " \
-                    #"With time running short, you must decide. Do you want to talk to townspeople for information or spy on rival pirates?",
+            "passage": "You're setting off on your own Pirate Adventure where exploration and treasures await! Somewhere beyond the horizon, "
+                    "a legendary treasure lies hidden, waiting to be claimed. But treasure hunting isn't just about sailing blindly into the unknown, "
+                    "you need information and strategy to outsmart the dangers that lurk ahead. With time running short, you must decide. "
+                    "Do you want to talk to townspeople for information or spy on rival pirates?",
             "prompts": [
                 "Raise your left arm to talk to townspeople",
                 "Raise your right arm to spy on rivals"
@@ -241,16 +243,16 @@ class Story():
     
     def fight_monster(self):
         return {
-            "passage": "Fighting monster",
-            # "You grab a cutlass from your belt and shout, Man the cannons! We fight! "
-            # "The crew scrambles into position, loading the cannons as the monster slams a tentacle onto the "
-            # "deck. The cannons roar, sending fiery iron into the monster's hide. It howls in pain, thrashing wildly. The battle rages as "
-            # "you hack at the tentacles with your blade, dodging as they slam into the ship. After a fierce fight, the creature lets out a "
-            # "final, pained wail before sinking into the sea. The crew cheers, though the ship has taken damage. You patch up the hull and "
-            # "continue toward Treasure Island. After days at sea the sight of land on the horizon fills your weary crew with renewed energy. "
-            # "Treasure Island! Your ship anchors just off the rocky shore of Treasure Island. The air is thick with the scent of sulfur, and "
-            # "dark smoke rises from the towering volcano at the island’s center. The moment your boots hit the sand, you hear rustling from "
-            # "the dense jungle ahead. Do you:"
+            "passage": 
+            "You grab a cutlass from your belt and shout, Man the cannons! We fight! "
+            "The crew scrambles into position, loading the cannons as the monster slams a tentacle onto the "
+            "deck. The cannons roar, sending fiery iron into the monster's hide. It howls in pain, thrashing wildly. The battle rages as "
+            "you hack at the tentacles with your blade, dodging as they slam into the ship. After a fierce fight, the creature lets out a "
+            "final, pained wail before sinking into the sea. The crew cheers, though the ship has taken damage. You patch up the hull and "
+            "continue toward Treasure Island. After days at sea the sight of land on the horizon fills your weary crew with renewed energy. "
+            "Treasure Island! Your ship anchors just off the rocky shore of Treasure Island. The air is thick with the scent of sulfur, and "
+            "dark smoke rises from the towering volcano at the island's center. The moment your boots hit the sand, you hear rustling from "
+            "the dense jungle ahead. Do you:",
             "prompts": [
                 "Investigate the rustling",
                 "Head straight for the volcano caves"
@@ -260,7 +262,14 @@ class Story():
     
     def trick(self):
         return{
-            "passage": "trick",
+            "passage": """
+            You grab a barrel of gunpowder and roll it toward the monster. “Hey, ugly!” you shout, waving your arms. The creature turns, its eyes narrowing.
+            You light the fuse and toss the barrel into its open maw. The explosion rocks the ship, sending the monster reeling.
+            It thrashes wildly, but the crew is already working to patch the ship. You sail away, leaving the beast behind.
+            After days at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island!
+            The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center.
+            The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:
+            """,
 
             "prompts": [
                 "Investigate the rustling",
@@ -272,7 +281,15 @@ class Story():
     
     def navigate(self):
         return{
-            "passage": "navigate",
+            "passage": """
+            You grab a map and chart a course through the storm. The crew works quickly, adjusting sails and securing cargo.
+            The ship rocks violently as waves crash against the hull, but you keep your eyes on the horizon.
+            After what feels like an eternity, the storm begins to clear. The sun breaks through the clouds, and the sea calms.
+            You breathe a sigh of relief, but the crew is exhausted. They need rest before you reach Treasure Island.
+            After days at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island!
+            The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center.
+            The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:
+            """,
             "prompts": [
                 "Investigate the rustling",
                 "Head straight for the volcano caves"
@@ -282,7 +299,9 @@ class Story():
     
     def investigate(self):
         return{
-            "passage": "investigate",
+            "passage": """You cautiously approach the rustling, your hand on your sword. As you part the thick foliage, 
+                        you discover a group of castaways—shipwrecked sailors, lost and desperate.
+                        They plead for help, claiming to know the location of the treasure. But can you trust them?""",
             "prompts": [
                 "Help the castaways",
                 "Ignore them and press on"
@@ -293,18 +312,10 @@ class Story():
     
     def help_casts(self):
         return{
-            "passage": "help casts",
-            "prompts": [
-                "Follow secret tunnel",
-                "Ignore tunnel"
-            ],
-            "gestures": ["left", "right"]
-
-        }
-    
-    def ignore_casts(self):
-        return{
-            "passage": "help casts",
+            "passage": """You decide to help the castaways, offering them food and water. They tell you about a secret tunnel that leads to the treasure, 
+                        but warn you of traps along the way. As you prepare to set off, one of them hands you a map, 
+                        marking the location of the tunnel. But as you look closer, you realize it's a crude drawing, 
+                        and the castaways seem nervous. Do you trust them?""",
             "prompts": [
                 "Follow secret tunnel",
                 "Ignore tunnel"
@@ -315,18 +326,39 @@ class Story():
     
     def volcano(self):
         return{
-            "passage": "volcano",
+            "passage": """
+            You press on toward the volcano, but the jungle is thick and treacherous. 
+            You stumble upon a hidden cave, its entrance shrouded in vines. 
+            A low growl echoes from the darkness. This cave is not unguarded. 
+
+        """,
             "prompts": [
-                "Draw your sword and prepare for a fight",
-                "Try and sneak in quietly"
+                    "Draw your sword and prepare for a fight",
+                    "Try and sneak in quietly"
             ],
             "gestures": ["left", "right"]
 
         }
     
+    # def volcano(self):
+    #     return{
+    #         "passage": "volcano",
+    #         "prompts": [
+    #             "Draw your sword and prepare for a fight",
+    #             "Try and sneak in quietly"
+    #         ],
+    #         "gestures": ["left", "right"]
+
+    #     }
+    
     def tunnel(self):
         return{
-            "passage": "tunnel",
+            "passage": """
+            You enter the tunnel, the air thick with dust and the smell of damp earth.
+            The walls are lined with strange markings, and the ground is uneven.
+            As you venture deeper, you hear a faint clicking sound.
+            Suddenly, a series of spears shoot out from the walls, narrowly missing you.
+            You realize you've triggered a trap! Do you:""",
             "prompts": [
                 "Try to disarm the trap",
                 "Grab the chest and run"
@@ -337,7 +369,12 @@ class Story():
     
     def disarm(self):
         return{
-            "passage": "disarm",
+            "passage": """
+            You quickly scan the walls, searching for the mechanism that triggered the trap.
+            You spot a lever hidden among the markings and pull it, disabling the spears.
+            The trap stops, and you breathe a sigh of relief.
+            But as you turn to leave, you notice a glint of gold in the corner of the tunnel.
+            A treasure chest! But it's surrounded by more traps. Do you:""",
             "prompts": [
                 "Find the trigger and disable it",
                 "Crawl under the spears"
@@ -348,7 +385,12 @@ class Story():
     
     def chest_run(self):
         return{
-            "passage": "tunnel",
+            "passage": """
+            You grab the chest and sprint down the tunnel, dodging spears as they shoot out from the walls.
+            The sound of clicking grows louder, and you realize the traps are resetting.
+            You reach the end of the tunnel, but the entrance collapses behind you, sealing you inside.
+            You find yourself in a large chamber filled with treasure, but the walls are closing in.
+            You have two choices: """,
             "prompts": [
                 "Try to disarm the trap",
                 "Grab the chest and run"
@@ -397,7 +439,11 @@ class Story():
     
     def sword(self):
         return{
-            "passage": "sword",
+            "passage": """
+            You draw your sword, ready to face the beast. The creature lunges at you, its massive jaws snapping inches from your face.
+            You dodge to the side, slashing at its tentacles. The crew joins you, swords drawn and ready to fight.
+            The battle is fierce, but the creature is relentless. It thrashes and roars, trying to shake you off.
+            You manage to land a few blows, but the beast is strong. Do you:""",
             "prompts": [
                 "Fight alongside your crew",
                 "Leave your crew to distract the beast"
@@ -455,40 +501,71 @@ class Story():
     
     def intercept_map(self):
         return{
-            "passage": "Intercepting map",
+            "passage": """The navigator sets the map down momentarily, distracted by an argument among the crew. This 
+                        is your chance! 
+                        You slip in and snatch the map, but as you retreat, a pirate catches sight of you. 
+                        “Hey! Thief!” a voice shouts, and suddenly, the entire crew is after you. 
+                        You dash to your ship as the pirates scramble to board theirs, they won't let this slide. 
+                        The Crimson Fang is hot on your trail, their blood-red sails billowing in the wind. You have three 
+                        choices to escape: """,
             "prompts": [
-                "Outrun them",
-                "Ambush them",
-                "Negotiate or bluff them"
+                "Outrun them by taking a dangerous shortcut.",
+                "Ambush them by using hidden cannons or a clever trap.",
+                "Negotiate or bluff your way out."
             ],
             "gestures": ["left", "right", "stop"]
         }
     
     def sneak_intel(self):
         return{
-            "passage": "sneaking for intel",
+            "passage": """You listen carefully, committing every detail to memory. The Crimson Fang plans to sail through 
+                        the Devil's Maw, a dangerous but fast route. 
+                        As you turn to leave, you accidentally kick a loose stone—a pirate's head snaps toward you. 
+                        You run for your ship, vaulting over barrels and dodging crates, but the pirates aren't far behind. 
+                        By the time you raise the anchor, the Crimson Fang is already giving chase. 
+                        The Crimson Fang is hot on your trail, their blood-red sails billowing in the wind. You have 
+                        three choices to escape: """,
             "prompts": [
-                "Outrun them",
-                "Ambush them",
-                "Negotiate or bluff them"
+                "Outrun them by taking a dangerous shortcut.",
+                "Ambush them by using hidden cannons or a clever trap.",
+                "Negotiate or bluff your way out."
             ],
             "gestures": ["left", "right", "stop"]
         }
     
     def disguise(self):
             return{
-                "passage": "using a disguise",
+                "passage": """You grab a tattered cloak and an old hat from a crate nearby, then swagger toward the pirates 
+                            like you belong there. 
+                            “Oi, what's all this talk about treasure?” you say, slurring your words like a drunk. 
+                            The pirates laugh, assuming you're just another washed-up sailor, and unknowingly spill more 
+                            details. But just as you turn to leave, one pirate eyes you suspiciously.  
+                            “Wait a minute… I know you!” 
+                            Before they can react, you bolt for your ship, knocking over crates to slow them down. 
+                            They will not accept this, so you run to your ship while the pirates rush to board theirs. 
+                            The Crimson Fang is hot on your trail, their blood-red sails billowing in the wind. You have 
+                            three choices to escape:
+                            """,
                 "prompts": [
-                    "Outrun them",
-                    "Ambush them",
-                    "Negotiate or bluff them"
+                    "Outrun them by taking a dangerous shortcut.",
+                    "Ambush them by using hidden cannons or a clever trap.",
+                    "Negotiate or bluff your way out."
                 ],
                 "gestures": ["left", "right", "stop"]
             }
     
     def outrun(self):
         return{
-            "passage": "outrunning",
+            "passage": """
+            You steer your ship toward the treacherous cliffs, hoping to lose them in the narrow passages. 
+            The Crimson Fang follows, but their larger ship struggles in the narrow waters. 
+            A sudden gust of wind catches your sails, propelling you forward just as a massive wave slams 
+            into the pirates' ship. They veer off course, barely avoiding disaster. You burst out of the Maw, 
+            leaving the enemy far behind. You escape unscathed and continue toward Treasure Island. After days 
+            at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island! 
+            The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the 
+            island's center. The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:
+            """,
             "prompts": [
                 "Investigate the rustling",
                 "Head straight for the volcano caves"
@@ -498,7 +575,13 @@ class Story():
     
     def ambush(self):
         return{
-            "passage": "ambush",
+            "passage": """
+            You set a trap using barrels of gunpowder and hidden cannons. As the Crimson Fang sails into the narrow
+            passage, you ignite the barrels, sending a fiery explosion toward them. The blast rocks their ship,
+            causing chaos among the crew. You take advantage of the confusion and sail past them, escaping into the open sea.
+            After days at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island! 
+            The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the 
+            island's center. The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:""",
             "prompts": [
                 "Investigate the rustling",
                 "Head straight for the volcano caves"
@@ -508,7 +591,11 @@ class Story():
     
     def bluff(self):
         return{
-            "passage": "bluffing",
+            "passage": """You raise a white flag and shout, “We surrender! We have no treasure!”
+                        The Crimson Fang hesitates, unsure if you're bluffing. You take advantage of their confusion and 
+                        sail away, leaving them behind. After days at sea the sight of land on the horizon fills your weary crew with renewed energy. 
+                        Treasure Island! The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center. 
+                        The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:""",
             "prompts": [
                 "Investigate the rustling",
                 "Head straight for the volcano caves"
