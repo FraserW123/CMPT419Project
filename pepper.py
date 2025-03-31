@@ -243,10 +243,11 @@ try:
 
         gesture = None
         start_time = time.time()
-        while time.time() - start_time < 60:  # 30 second timeout
+        while time.time() - start_time < 75:  # 30 second timeout
             # Capture frame and detect gesture
             if gesture in current_scene["gestures"]:
                 current_scene = story_mode.transition(gesture)
+                no_gesture += 1
                 # if not current_scene["gestures"]:  # Ending reached
                 #     print("done 2")
                 #     tts.say(current_scene["passage"])
