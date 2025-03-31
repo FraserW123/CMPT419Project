@@ -1,7 +1,7 @@
 class Story():
     def __init__(self):
         #self.done = False
-        self.current_state = "sword"
+        self.current_state = "introduction"
         self.states = {
             "introduction": self.introduction,
             "townspeople": self.townspeople,
@@ -162,7 +162,7 @@ class Story():
     
     def introduction(self):
         return {
-            "passage": "\\VCT=80\\ \\style=joyful\\ You're setting off on your own Pirate Adventure where exploration and treasures await! Somewhere beyond the horizon, "
+            "passage": "\\style=didactic\\ Hello! Nice to meet you. You're setting off on your own Pirate Adventure where exploration and treasures await! Somewhere beyond the horizon, "
                     "a legendary treasure lies hidden, waiting to be claimed. But treasure hunting isn't just about sailing blindly into the unknown, "
                     "you need information and strategy to outsmart the dangers that lurk ahead. With time running short, you must decide. "
                     "Do you want to talk to townspeople for information or spy on rival pirates?",
@@ -196,7 +196,7 @@ class Story():
     def mirage(self):
         return {
             "passage": "Not quite, matey. That answer be as lost as a ship with no compass. "
-            "Here is the riddle again. I have seas without water, coasts without sand, towns "
+            "Here is the riddle again. \pau=350\ I have seas without water, coasts without sand, towns "
             "without people and mountains without land without land. What am I?",
 
             "prompts": [
@@ -210,7 +210,7 @@ class Story():
     def dream(self):
         return {
             "passage": "Not quite, matey. That answer be as lost as a ship with no compass. "
-            "Here is the riddle again I have seas without water, coasts without sand, towns "
+            "Here is the riddle again. \pau=350\ I have seas without water, coasts without sand, towns "
             "without people and mountains without land without land. What am I?",
 
             "prompts": [
@@ -247,7 +247,7 @@ class Story():
             "you hack at the tentacles with your blade, dodging as they slam into the ship. After a fierce fight, the creature lets out a "
             "final, pained wail before sinking into the sea. The crew cheers, though the ship has taken damage. You patch up the hull and "
             "continue toward Treasure Island. After days at sea the sight of land on the horizon fills your weary crew with renewed energy. "
-            "Treasure Island! ^runSound(soundSet/soundFile, soundVolume) Your ship anchors just off the rocky shore of Treasure Island. "
+            "Treasure Island! Your ship anchors just off the rocky shore of Treasure Island. "
             "The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center. The moment "
             "your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:",
             "prompts": [
@@ -262,8 +262,8 @@ class Story():
             "passage": """
             You grab a barrel of gunpowder and roll it toward the monster. “Hey, ugly!” you shout, waving your arms. The creature turns, its eyes narrowing.
             You light the fuse and toss the barrel into its open maw. The explosion rocks the ship, sending the monster reeling.
-            It thrashes wildly, but the crew is already working to patch the ship. You sail away, leaving the beast behind.
-            After days at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island!
+            It thrashes wildly, but the crew is already working to patch the ship. You sail away, leaving the beast behind. \pau=350\ After 
+            days at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island!
             The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center.
             The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:
             """,
@@ -282,8 +282,8 @@ class Story():
             You grab a map and chart a course through the storm. The crew works quickly, adjusting sails and securing cargo.
             The ship rocks violently as waves crash against the hull, but you keep your eyes on the horizon.
             After what feels like an eternity, the storm begins to clear. The sun breaks through the clouds, and the sea calms.
-            You breathe a sigh of relief, but the crew is exhausted. They need rest before you reach Treasure Island.
-            After days at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island!
+            You breathe a sigh of relief, but the crew is exhausted. They need rest before you reach Treasure Island. \pau=350\ After 
+            days at sea the sight of land on the horizon fills your weary crew with renewed energy. Treasure Island! 
             The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center.
             The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:
             """,
