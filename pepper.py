@@ -200,6 +200,7 @@ current_scene = story_mode.get_current_scene()
 # Gesture Detection Cooldown 
 LAST_DETECTION_TIME = 0
 COOLDOWN = 5.0
+no_gesture = 1
 
 try:
     """ current_state = "start"
@@ -225,18 +226,19 @@ try:
             tts.say("Thank you!")
             done = True
             break
-
-        count = 0
-        for prompt in current_scene["prompts"]:
-            tts.say(prompt)
-            if count == 0:
-                signal_left(motion)
-            elif count == 1:
-                signal_right(motion)
-            else:
-                signal_both(motion)
-            count+=1
-            time.sleep(5)
+            
+        if no_gesture % 3 != 0
+            count = 0
+            for prompt in current_scene["prompts"]:
+                tts.say(prompt)
+                if count == 0:
+                    signal_left(motion)
+                elif count == 1:
+                    signal_right(motion)
+                else:
+                    signal_both(motion)
+                count+=1
+                time.sleep(5)
 
 
         gesture = None
