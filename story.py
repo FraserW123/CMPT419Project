@@ -156,9 +156,6 @@ class Story():
             "dodge":{
             }
 
-
-
-
         }
         self.current_state = transitions.get(self.current_state, {}).get(choice, self.current_state)
         return self.get_current_scene()
@@ -401,7 +398,15 @@ class Story():
     
     def disable(self):
         return{
-            "passage": "end1",
+            "passage": """
+            You carefully examine the trap, searching for a way to disable it.
+            You spot a lever hidden among the markings and pull it, disabling the spears.
+            The trap stops, and you breathe a sigh of relief. The chest is now within reach. You
+            open it and inside lies the Golden Compass, a legendary artifact said to lead its owner 
+            to the greatest treasure of all. Your crew cheers and you feel a sense of triumph.
+            As you stand aboard your ship, the treasure secured, the island fading into the horizon, you grin. 
+            The sea stretches before you, endless and full of adventure.
+            """,
             "prompts": [
                 "end"
             ],
@@ -411,7 +416,15 @@ class Story():
     
     def crawl(self):
         return{
-            "passage": "end2",
+            "passage": """
+            You drop to your belly and crawl under the spears, narrowly avoiding the deadly trap.
+            The chest is now within reach. You open it and inside lies the Golden Compass, 
+            a legendary artifact said to lead its owner  to the greatest treasure of all. 
+            Your crew cheers and you feel a sense of triumph. As you stand aboard your ship, 
+            the treasure secured, the island fading into the horizon, you grin. 
+            The sea stretches before you, endless and full of adventure.
+
+            """,
             "prompts": [
                 "end"
             ],
@@ -421,7 +434,18 @@ class Story():
     
     def dodge(self):
         return{
-            "passage": "end3",
+            "passage": """
+                        With the chest clutched tightly in your arms, you sprint through the collapsing cavern. 
+                        Spears whistle past you, and the ground shudders beneath your feet, but you push forward.
+                        "Almost there!" you shout, weaving between the falling debris.
+                        A massive boulder crashes down just behind you, cutting off the trap-filled chamber forever. 
+                        You and your crew burst into the open air, gasping for breath.
+                        For a moment, there is only silence. Then—cheers erupt! You open the chest and inside lies the Golden Compass, 
+                        a legendary artifact said to lead its owner  to the greatest treasure of all. 
+                        Your crew cheers and you feel a sense of triumph. As you stand aboard your ship, 
+                        the treasure secured, the island fading into the horizon, you grin. 
+                        The sea stretches before you, endless and full of adventure.
+                        """,
             "prompts": [
                 "end"
             ],
@@ -430,7 +454,23 @@ class Story():
     
     def toss(self):
         return{
-            "passage": "end4",
+            "passage": """
+            The chest is too heavy and you won't make it. You hurl it to Jace.
+            "Catch!"
+            He snatches it and bolts for the exit.
+            "Jace, what are you doing?!"
+            "Sorry, Captain!" he calls back.
+            Betrayal burns, but there's no time as the ceiling is collapsing.
+            Then, CLICK.
+            Jace triggers a trap. Poisoned darts fire, piercing his back. He stumbles, the chest slipping from his fingers.
+            "No, no—!" His voice fades. Moments later, he's still.
+            You grab the treasure and sprint as the cave collapses.
+            Outside, silence lingers.
+            "He got what he deserved," someone mutters.
+            You nod. "The sea waits for no one."
+            Your crew sets sail, the weight of betrayal lost to the waves.
+
+            """,
             "prompts": [
                 "end"
             ],
@@ -454,7 +494,17 @@ class Story():
     
     def sneak(self):
         return{
-            "passage": "sneaking",
+            "passage": """
+                You motion for silence, pressing a finger to your lips as you and your crew carefully step through the cavern. 
+                The beast’s massive form looms in the darkness, its breath slow and rhythmic—it’s asleep.
+                You gesture for your crew to follow, weaving between jagged rocks and ancient bones. 
+                The treasure gleams ahead, half-buried in volcanic ash. Just a few more careful steps, and—
+                "CRACK!"
+                One of your crew members kicks loose a rock. The sound echoes through the chamber like a cannon blast. 
+                The beast's fiery eyes snap open. It lets out an ear-splitting roar, the ground shaking beneath your feet.
+                "RUN!" someone shouts, but it's too late. The creature lashes out, its tail smashing into the cavern walls. 
+                Do you:
+            """,
             "prompts": [
                 "Fight alongside your crew",
                 "Leave your crew to distract the beast"
@@ -465,7 +515,12 @@ class Story():
 
     def fight_alongside(self):
         return{
-            "passage": "end5",
+            "passage": """
+                    "Together, we take it down!" you roar, raising your weapon. Your crew lets out a battle cry, fanning out to surround the beast. 
+                    After a hard fought battle the beast is taken down and behind it is a treasure chest. You step forward, prying it open to reveal 
+                    the legendary Golden Compass.  Your crew erupts into cheers. As you sail away from Treasure Island, the horizon stretches wide, 
+                    promising new adventures yet to come.
+                    """,
             "prompts": [
                 "end"
             ],
@@ -475,7 +530,12 @@ class Story():
 
     def leave(self):
             return{
-                "passage": "end6",
+                "passage": """
+                "Keep it busy!" you order, slipping toward the treasure as your crew battles the beast.
+                Steel clashes, flames roar, but you don’t look back. Heart pounding, you pry open the chest—the Golden Compass gleams inside. Snatching it, you turn for the exit.
+                Guilt flickers, then fades. Survival comes first. You sprint through the tunnels, shove off in a small boat, and sail away.
+                The island shrinks behind you, along with the crew you abandoned. You have the treasure… but at what cost?
+                """,
                 "prompts": [
                     "end"
                 ],
