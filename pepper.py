@@ -227,10 +227,12 @@ try:
             done = True
             break
 
-        if no_gesture % 3 != 0:
-            count = 0
-            for prompt in current_scene["prompts"]:
-                tts.say(prompt)
+        
+        count = 0
+        for prompt in current_scene["prompts"]:
+            tts.say(prompt)
+            
+            if no_gesture % 3 != 0:
                 if count == 0:
                     signal_left(motion)
                 elif count == 1:
@@ -238,7 +240,8 @@ try:
                 else:
                     signal_both(motion)
                 count+=1
-                time.sleep(5)
+
+            time.sleep(5)
 
 
         gesture = None
