@@ -251,8 +251,8 @@ class Story():
             "The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center. The moment "
             "your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:",
             "prompts": [
-                "Investigate the rustling",
-                "Head straight for the volcano caves"
+                "Raise your left arm to Investigate the rustling",
+                "Raise your right arm to Head straight for the volcano caves"
             ],
             "gestures": ["left", "right"]
         }
@@ -269,8 +269,8 @@ class Story():
             """,
 
             "prompts": [
-                "Investigate the rustling",
-                "Head straight for the volcano caves"
+                "Raise your left arm to Investigate the rustling",
+                "Raise your right arm to Head straight for the volcano caves"
             ],
             "gestures": ["left", "right"]
 
@@ -288,8 +288,8 @@ class Story():
             The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:
             """,
             "prompts": [
-                "Investigate the rustling",
-                "Head straight for the volcano caves"
+                "Raise your left arm to Investigate the rustling",
+                "Raise your right arm to Head straight for the volcano caves"
             ],
             "gestures": ["left", "right"]
         }
@@ -300,8 +300,8 @@ class Story():
                         you discover a group of castaways—shipwrecked sailors, lost and desperate.
                         They plead for help, claiming to know the location of the treasure. But can you trust them?""",
             "prompts": [
-                "Help the castaways",
-                "Ignore them and press on"
+                "Raise your left arm to Help the castaways",
+                "Raise your right arm to Ignore them and press on"
             ],
             "gestures": ["left", "right"]
 
@@ -314,8 +314,8 @@ class Story():
                         marking the location of the tunnel. But as you look closer, you realize it's a crude drawing, 
                         and the castaways seem nervous. Do you trust them?""",
             "prompts": [
-                "Follow secret tunnel",
-                "Ignore tunnel"
+                "Raise your left arm to Follow the secret tunnel",
+                "Raise your right arm to Ignore the tunnel"
             ],
             "gestures": ["left", "right"]
 
@@ -330,8 +330,8 @@ class Story():
 
         """,
             "prompts": [
-                    "Draw your sword and prepare for a fight",
-                    "Try and sneak in quietly"
+                    "Raise your left arm to Draw your sword and prepare for a fight",
+                    "Raise your right arm to Try and sneak in quietly"
             ],
             "gestures": ["left", "right"]
 
@@ -357,8 +357,8 @@ class Story():
             Suddenly, a series of spears shoot out from the walls, narrowly missing you.
             You realize you've triggered a trap! Do you:""",
             "prompts": [
-                "Try to disarm the trap",
-                "Grab the chest and run"
+                "Raise your left arm to Try to disarm the trap",
+                "Raise your right arm to Grab the chest and run"
             ],
             "gestures": ["left", "right"]
 
@@ -373,8 +373,8 @@ class Story():
             But as you turn to leave, you notice a glint of gold in the corner of the tunnel.
             A treasure chest! But it's surrounded by more traps. Do you:""",
             "prompts": [
-                "Find the trigger and disable it",
-                "Crawl under the spears"
+                "Raise your left arm to Find the trigger and disable it",
+                "Raise your right arm to Crawl under the spears"
             ],
             "gestures": ["left", "right"]
 
@@ -389,8 +389,8 @@ class Story():
             You find yourself in a large chamber filled with treasure, but the walls are closing in.
             You have two choices: """,
             "prompts": [
-                "Try to disarm the trap",
-                "Grab the chest and run"
+                "Raise your left arm to Try to disarm the trap",
+                "Raise your right arm to Grab the chest and run"
             ],
             "gestures": ["left", "right"]
 
@@ -485,8 +485,8 @@ class Story():
             The battle is fierce, but the creature is relentless. It thrashes and roars, trying to shake you off.
             You manage to land a few blows, but the beast is strong. Do you:""",
             "prompts": [
-                "Fight alongside your crew",
-                "Leave your crew to distract the beast"
+                "Raise your left arm to Fight alongside your crew",
+                "Raise your right arm to Leave your crew to distract the beast"
             ],
             "gestures": ["left", "right"]
 
@@ -506,8 +506,8 @@ class Story():
                 Do you:
             """,
             "prompts": [
-                "Fight alongside your crew",
-                "Leave your crew to distract the beast"
+                "Raise your left arm to Fight alongside your crew",
+                "Raise your right arm to Leave your crew to distract the beast"
             ],
             "gestures": ["left", "right"]
 
@@ -552,9 +552,9 @@ class Story():
                 "through the shadows of the docks, eavesdropping on their captain's conversation. You notice"\
                 "their navigator holding the map to Treasure Island!",
             "prompts": [
-                "Intercept the map",
-                "Sneak away with the intel",
-                "Use a disguise"
+                "Raise your left arm to Intercept the map",
+                "Raise your right arm to Sneak away with the intel",
+                "Raise both arms to Use a disguise"
             ],
             "gestures": ["left", "right", "stop"]
         }
@@ -569,9 +569,9 @@ class Story():
                         The Crimson Fang is hot on your trail, their blood-red sails billowing in the wind. You have three 
                         choices to escape: """,
             "prompts": [
-                "Outrun them by taking a dangerous shortcut.",
-                "Ambush them by using hidden cannons or a clever trap.",
-                "Negotiate or bluff your way out."
+                "Raise your left arm to Outrun them by taking a dangerous shortcut.",
+                "Raise your right arm to Ambush them by using hidden cannons or a clever trap.",
+                "Raise both arms to Negotiate or bluff your way out."
             ],
             "gestures": ["left", "right", "stop"]
         }
@@ -586,9 +586,9 @@ class Story():
                         The Crimson Fang is hot on your trail, their blood-red sails billowing in the wind. You have 
                         three choices to escape: """,
             "prompts": [
-                "Outrun them by taking a dangerous shortcut.",
-                "Ambush them by using hidden cannons or a clever trap.",
-                "Negotiate or bluff your way out."
+                "Raise your left arm to Outrun them by taking a dangerous shortcut.",
+                "Raise your right arm to Ambush them by using hidden cannons or a clever trap.",
+                "Raise both arms to Negotiate or bluff your way out."
             ],
             "gestures": ["left", "right", "stop"]
         }
@@ -607,9 +607,9 @@ class Story():
                             three choices to escape:
                             """,
                 "prompts": [
-                    "Outrun them by taking a dangerous shortcut.",
-                    "Ambush them by using hidden cannons or a clever trap.",
-                    "Negotiate or bluff your way out."
+                    "Raise your left arm to Outrun them by taking a dangerous shortcut.",
+                    "Raise your right arm to Ambush them by using hidden cannons or a clever trap.",
+                    "Raise both arms to Negotiate or bluff your way out."
                 ],
                 "gestures": ["left", "right", "stop"]
             }
@@ -627,8 +627,8 @@ class Story():
             island's center. The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:
             """,
             "prompts": [
-                "Investigate the rustling",
-                "Head straight for the volcano caves"
+                "Raise your left arm to Investigate the rustling",
+                "Raise your right arm to Head straight for the volcano caves"
             ],
             "gestures": ["left", "right"]
         }
@@ -643,8 +643,8 @@ class Story():
             The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the 
             island's center. The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:""",
             "prompts": [
-                "Investigate the rustling",
-                "Head straight for the volcano caves"
+                "Raise your left arm to Investigate the rustling",
+                "Raise your right arm to Head straight for the volcano caves"
             ],
             "gestures": ["left", "right"]
         }
@@ -657,8 +657,8 @@ class Story():
                         Treasure Island! The air is thick with the scent of sulfur, and dark smoke rises from the towering volcano at the island's center. 
                         The moment your boots hit the sand, you hear rustling from the dense jungle ahead. Do you:""",
             "prompts": [
-                "Investigate the rustling",
-                "Head straight for the volcano caves"
+                "Raise your left arm to Investigate the rustling",
+                "Raise your right arm to Head straight for the volcano caves"
             ],
             "gestures": ["left", "right"]
         }
