@@ -275,8 +275,8 @@ try:
 
             if results.pose_landmarks:
                 # Draw landmarks (optional) - adds the landmarks on the camera pop up
-                # mp_drawing.draw_landmarks(
-                #     img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+                mp_drawing.draw_landmarks(
+                    img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
                 
                 current_time = time.time()
                 if (current_time - LAST_DETECTION_TIME) > COOLDOWN:

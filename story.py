@@ -481,7 +481,7 @@ class Story():
         return{
             "passage": """
             You draw your sword, ready to face the beast. The creature lunges at you, its massive jaws snapping inches from your face.
-            You dodge to the side, slashing at its tentacles. The crew joins you, swords drawn and ready to fight.
+            You dodge to the side, slashing at its legs. The crew joins you, swords drawn and ready to fight.
             The battle is fierce, but the creature is relentless. It thrashes and roars, trying to shake you off.
             You manage to land a few blows, but the beast is strong. Do you:""",
             "prompts": [
