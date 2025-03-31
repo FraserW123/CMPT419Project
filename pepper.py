@@ -226,8 +226,8 @@ try:
             tts.say("Thank you!")
             done = True
             break
-            
-        if no_gesture % 3 != 0
+
+        if no_gesture % 3 != 0:
             count = 0
             for prompt in current_scene["prompts"]:
                 tts.say(prompt)
