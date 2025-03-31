@@ -241,7 +241,7 @@ try:
 
         gesture = None
         start_time = time.time()
-        while time.time() - start_time < 30:  # 30 second timeout
+        while time.time() - start_time < 60:  # 30 second timeout
             # Capture frame and detect gesture
             if gesture in current_scene["gestures"]:
                 current_scene = story_mode.transition(gesture)
@@ -313,6 +313,6 @@ try:
 finally:
     csv_file.close()
     video_service.unsubscribe(subscriberId)
-    motion.setStiffnesses("Head", 0.0)  # Relax head motors
+    # motion.setStiffnesses("Head", 0.0)  # Relax head motors
     cv2.destroyAllWindows()
     print("Disconnected")
