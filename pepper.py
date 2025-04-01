@@ -109,14 +109,14 @@ model.eval()
 
 def signal_left(motion):
     motion.setStiffnesses("LArm", 1.0)
-    motion.setAngles(["LShoulderPitch", "LShoulderRoll"], [-0.75,1], 0.4)
+    motion.setAngles(["LShoulderPitch", "LShoulderRoll"], [-0.75,1], 0.5)
 
 def signal_right(motion):
     #motion.setStiffnesses("RArm", 1.0)
-    motion.setAngles(["RShoulderPitch", "RShoulderRoll"], [-0.75,-1], 0.4)
+    motion.setAngles(["RShoulderPitch", "RShoulderRoll"], [-0.75,-1], 0.5)
 
 def signal_both(motion):
-    motion.setAngles(["RShoulderPitch", "LShoulderPitch", "RShoulderRoll", "LShoulderRoll"], [-0.75, -0.75,-1,1], 0.4)
+    motion.setAngles(["RShoulderPitch", "LShoulderPitch", "RShoulderRoll", "LShoulderRoll"], [-0.75, -0.75,-1,1], 0.5)
 
 # Detects Left, Right, and Both arms gestures using mediapipe
 # Checks to see if wrists is above shoulders
@@ -199,7 +199,7 @@ current_scene = story_mode.get_current_scene()
 
 # Gesture Detection Cooldown 
 LAST_DETECTION_TIME = 0
-COOLDOWN = 5.0
+COOLDOWN = 3.0
 no_gesture = 1
 
 try:
