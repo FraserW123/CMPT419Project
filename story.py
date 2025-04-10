@@ -50,23 +50,23 @@ class Story():
             },
             "spy": {
                 "left": "intercept_map",
-                "right": "sneak",
-                "both": "disguise"
+                "right": "sneak_intel",
+                "stop": "disguise"
             },
             "intercept_map": {
                 "left": "outrun",
                 "right": "ambush",
-                "both": "bluff"
+                "stop": "bluff"
             },
             "sneak_intel": {
                 "left": "outrun",
                 "right": "ambush",
-                "both": "bluff"
+                "stop": "bluff"
             },
             "disguise": {
                 "left": "outrun",
                 "right": "ambush",
-                "both": "bluff"
+                "stop": "bluff"
             },
             "outrun":{
                 "left": "investigate",
@@ -197,7 +197,7 @@ class Story():
         return {
             "passage": "Not quite, matey. That answer be as lost as a ship with no compass. "
             "Here is the riddle again. \pau=350\ I have seas without water, coasts without sand, towns "
-            "without people and mountains without land without land. What am I?",
+            "without people and mountains without land. What am I?",
 
             "prompts": [
                 "Raise your left arm for Mirage",
@@ -211,7 +211,7 @@ class Story():
         return {
             "passage": "Not quite, matey. That answer be as lost as a ship with no compass. "
             "Here is the riddle again. \pau=350\ I have seas without water, coasts without sand, towns "
-            "without people and mountains without land without land. What am I?",
+            "without people and mountains without land. What am I?",
 
             "prompts": [
                 "Raise your left arm for Mirage",
@@ -548,7 +548,7 @@ class Story():
     def spy(self):
         return{
             "passage": "The Crimson Fang, a ruthless crew of cutthroats, has been searching for the treasure as well. If" \
-                "anyone knows where to find it, it's them but they don't share secrets willingly. You creep" \
+                " anyone knows where to find it, it's them but they don't share secrets willingly. You creep" \
                 "through the shadows of the docks, eavesdropping on their captain's conversation. You notice"\
                 "their navigator holding the map to Treasure Island!",
             "prompts": [

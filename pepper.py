@@ -167,7 +167,7 @@ def detect_gesture(landmarks):
             conf, predicted = torch.max(probabilities, 1)
             
             # Add confidence threshold
-            if conf < 0.9:  # Adjust threshold as needed
+            if conf < 0.98:  # Adjust threshold as needed
                 return None
         
         # Map model output to labels
@@ -216,6 +216,7 @@ try:
         tts.say(story[current_state]["path3"])
         signal_both(motion)
     time.sleep(3) """
+    motion.setStiffnesses("Head", 0.0)  # Relax head motors
     done = False
     while not done:
         print("Start")
@@ -234,15 +235,17 @@ try:
             
             if no_gesture % 3 != 0:
                 if count == 0:
-                    signal_left(motion)
-                elif count == 1:
                     signal_right(motion)
+                elif count == 1:
+                    signal_left(motion)
                 else:
                     signal_both(motion)
                 count+=1
-
+            
             time.sleep(5)
-
+        
+        tts.say("Make your choice now")
+        time.sleep(2)
 
         gesture = None
         start_time = time.time()
@@ -319,6 +322,6 @@ try:
 finally:
     csv_file.close()
     video_service.unsubscribe(subscriberId)
-    # motion.setStiffnesses("Head", 0.0)  # Relax head motors
+    motion.setStiffnesses("Head", 1.0)  # Relax head motors
     cv2.destroyAllWindows()
     print("Disconnected")
