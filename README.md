@@ -45,17 +45,32 @@ project-root/
     Make sure the development is set up with Python 3 as well as the dependencies listed in the provided requirements.txt file.
 
 2. **Connect to Pepper**
-    Connect your computer to the same network as Pepper and retreive its IP address. Enter in the necessary credentials to run code
+    Connect your computer to the same network as Pepper and retreive its IP address. Enter in the necessary credentials to run code.
 
 3. **Run the Application**
-    Use the provided control script `pepper.py` to launch the storytelling session
+    Use the provided control script `pepper.py` to launch the storytelling session.
     ```bash
     python3 pepper.py
     ```
 4.  **Participant Study**
-    Follow the scripted interaction for each participant and collect gesture recognition data which is automatically saved to CSV
+    Follow the scripted interaction for each participant and collect gesture recognition data which is automatically saved to CSV.
 
 5. **Survey**
-    Administer the follow-up survey either digitally or in print to gather user feedback
+    Administer the follow-up survey either digitally or in print to gather user feedback.
+
+## Acknowledgements
+
+To connect to the Pepper robot using the qi library, we referenced this stack overflow post:
+
+https://stackoverflow.com/questions/77987028/how-can-i-connect-to-pepper-naoqi-2-9-via-libqi-python 
+
+To train our model, we used this dataset from kaggle:
+
+https://www.kaggle.com/datasets/williamsvealochert/arm-and-body-gestureswrss 
+
+We would also like to thank our TA Shay Zhang for onboarding us on how to use the pepper robots.
+
 
 ## Self Evaluation
+
+Our initial proposal was motivated to create more emotionally intelligent and engaging interactions between humans and robots. We planned to do this by optimizing the story based on player engagement, as well as recommending story paths to players during the game. However, we realized these were plans were overly ambitious given our timeline, so we focused on having the robot perform arm gestures and enabling players to use their own gestures to make choices during the game. This shift allowed us to build a functional and focused prototype that still captured our core goal of enhancing human-robot interactions. 
