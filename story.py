@@ -1,6 +1,5 @@
 class Story():
     def __init__(self):
-        #self.done = False
         self.current_state = "introduction"
         self.states = {
             "introduction": self.introduction,
@@ -335,18 +334,7 @@ class Story():
             ],
             "gestures": ["left", "right"]
 
-        }
-    
-    # def volcano(self):
-    #     return{
-    #         "passage": "volcano",
-    #         "prompts": [
-    #             "Draw your sword and prepare for a fight",
-    #             "Try and sneak in quietly"
-    #         ],
-    #         "gestures": ["left", "right"]
-
-    #     }
+        }   
     
     def tunnel(self):
         return{
