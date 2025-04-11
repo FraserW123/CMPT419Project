@@ -9,7 +9,7 @@ This project explores how arm gestures performed by the Pepper robot can influen
 
 The study involved 20 participants and used both qualitative and quantitative survey responses to assess engagement, interactivity, and immersion. The results indicated that while gestures significantly improved user engagement and attention, their impact on narrative immersion was more varied.
 
-![](images\all3.png)
+![](images/all3.png)
 
 ## Features
 
