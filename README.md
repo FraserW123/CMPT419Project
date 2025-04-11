@@ -1,11 +1,15 @@
 # Human-Robot Interactions through Interactive Stories
 ## Fraser Wong, Lazar Pajic, Nathan Chow
 
+
+
 ## Overview
 
 This project explores how arm gestures performed by the Pepper robot can influence user engagement and immersion in interactive storytelling. We developed a gesture-enhanced storytelling application for Pepper, integrating arm movement cues during key narrative moments. A user study was conducted to evaluate the effects of these gestures, comparing scenes with and without physical gestures through participant feedback.
 
 The study involved 20 participants and used both qualitative and quantitative survey responses to assess engagement, interactivity, and immersion. The results indicated that while gestures significantly improved user engagement and attention, their impact on narrative immersion was more varied.
+
+![](images\all3.png)
 
 ## Features
 

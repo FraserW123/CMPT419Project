@@ -5,59 +5,54 @@ from PIL import Image
 import os
 import glob
 
-class GestureSequenceDataset(Dataset):
+class GestureImageDataset(Dataset):
     def __init__(self, root_dir, transform=None):
+        """
+        root_dir: Path to dataset folder containing labeled subfolders.
+        transform: Image transformations.
+        """
         self.root_dir = root_dir
         self.transform = transform
-        self.sequences = []
-        self.label_map = {"left": 0, "right": 1, "stop": 2}
+        self.image_paths = []
+        self.labels = []
+        self.label_map = {"left": 0, "right": 1, "stop": 2}  # Define label mapping
 
-        for gesture_folder in sorted(os.listdir(root_dir)):
-            seq_path = os.path.join(root_dir, gesture_folder)
-            if os.path.isdir(seq_path): 
-                label_name = gesture_folder.split("_")[0]  
-                if label_name in self.label_map:  
-                    self.sequences.append((seq_path, self.label_map[label_name]))
+        # Iterate over subfolders
+        for label_name in self.label_map.keys():
+            folder_path = os.path.join(root_dir, label_name)  # e.g., "dataset/left"
+            if os.path.isdir(folder_path):
+                images = glob.glob(os.path.join(folder_path, "*.jpg"))  # Load images
+                self.image_paths.extend(images)
+                self.labels.extend([self.label_map[label_name]] * len(images))  # Assign label to each image
         
-        print(f"Loaded {len(self.sequences)} sequences: {self.sequences}")
+        print(f"Loaded {len(self.image_paths)} images from {len(self.label_map)} classes.")
 
     def __len__(self):
-        return len(self.sequences)
+        return len(self.image_paths)
 
     def __getitem__(self, idx):
-        seq_folder, label_idx = self.sequences[idx]
-        image_paths = sorted(glob.glob(os.path.join(seq_folder, "*.jpg")))  # Check case sensitivity
-        
-        print(f"Loading {len(image_paths)} images from {seq_folder}")
+        img_path = self.image_paths[idx]
+        label = self.labels[idx]
 
-        if len(image_paths) == 0:
-            print(f"Warning: No images found in {seq_folder}")
+        image = Image.open(img_path).convert("L")  # Convert to grayscale
+        if self.transform:
+            image = self.transform(image)
 
-        images = []
-        for img_path in image_paths:
-            image = Image.open(img_path).convert("L")  
-            if self.transform:
-                image = self.transform(image)
-            images.append(image)
-
-        if len(images) == 0:
-            return None, None  # Avoid errors in stacking
-
-        images = torch.stack(images)  
-        return images, label_idx  
+        return image, label  # (Image Tensor, Label)
 
 # Example Usage
-transform = transforms.Compose([
-    transforms.Resize((28, 28)),
-    transforms.ToTensor(),
-])
+# transform = transforms.Compose([
+#     transforms.Resize((28, 28)),
+#     transforms.ToTensor(),  # Converts to (C, H, W) where C=1 for grayscale
+# ])
 
-dataset = GestureSequenceDataset(root_dir="dataset_green", transform=transform)
-print(len(dataset))
-dataloader = DataLoader(dataset, batch_size=4, shuffle=True)
+# dataset = GestureImageDataset(root_dir="dataset_green", transform=transform)
+# print(len(dataset))
+# dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
 
-for images, labels in dataloader:
-    if images is not None:
-        print(images.shape)
-        print(labels)
-    break
+# # Test the DataLoader
+# for images, labels in dataloader:
+#     print(images.shape)  # Expected: (batch_size, 1, 64, 64)
+#     print(labels)  # Expected: (batch_size,)
+#     print("hi")
+#     break

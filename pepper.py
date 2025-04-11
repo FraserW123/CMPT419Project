@@ -70,11 +70,6 @@ tts = app.session.service("ALTextToSpeech")
 motion = app.session.service("ALMotion")
 autonomous_life = app.session.service("ALAutonomousLife")
 
-#autonomous_life.setState("disabled")  # Disable autonomous behaviors
-
-# Set Pepper's head to look up (HeadPitch angle in radians)
-# motion.setStiffnesses("Head", 1.0)  # Enable motor stiffness
-# motion.setAngles("HeadPitch", -0.5, 0.2)  # Tilt head up (adjust -0.3 as needed)
 
 # Camera setup
 resolution = 3  # VGA (640x480)
@@ -121,28 +116,6 @@ def signal_both(motion):
 # Detects Left, Right, and Both arms gestures using mediapipe
 # Checks to see if wrists is above shoulders
 def detect_gesture(landmarks):
-    """ try:
-        left_wrist = landmarks[mp_pose.PoseLandmark.LEFT_WRIST]
-        right_wrist = landmarks[mp_pose.PoseLandmark.RIGHT_WRIST]
-        left_shoulder = landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER]
-        right_shoulder = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER]
-
-        # Check vertical positions (MediaPipe y decreases upward)
-        left_up = left_wrist.y < left_shoulder.y - 0.1  # Added margin
-        right_up = right_wrist.y < right_shoulder.y - 0.1
-
-        logging.debug(f"Left wrist Y: {left_wrist.y}, Shoulder Y: {left_shoulder.y}")
-
-        if left_up and right_up:
-            return "both"
-        elif left_up:
-            return "left"
-        elif right_up:
-            return "right"
-        return None
-    except Exception as e:
-        logging.error(f"Gesture detection failed: {str(e)}")
-        return None """
     try:
         # Extract the same landmarks used in training
         landmark_indices = [
@@ -181,21 +154,6 @@ def detect_gesture(landmarks):
 # Choose your own adventure story
 story_mode = Story()
 current_scene = story_mode.get_current_scene()
-""" story = {
-    "start": {
-        "text": story_mode.townspeople()[0],
-        "path1": story_mode.townspeople()[1],
-        "path2": story_mode.townspeople()[2],
-        "path3": story_mode.townspeople()[3],
-        "choices": {
-            "left": "left",
-            "right": "right.",
-            "stop": "botha"
-        }
-        
-        
-    }
-} """
 
 # Gesture Detection Cooldown 
 LAST_DETECTION_TIME = 0
@@ -203,19 +161,6 @@ COOLDOWN = 3.0
 no_gesture = 1
 
 try:
-    """ current_state = "start"
-    #tts.say(story[current_state]["text"])
-    #tts.say("Start")
-    tts.say(story[current_state]["path1"])
-    signal_left(motion)
-    time.sleep(5)
-    tts.say(story[current_state]["path2"])
-    signal_right(motion)
-    time.sleep(5)
-    if story[current_state]["path3"]:
-        tts.say(story[current_state]["path3"])
-        signal_both(motion)
-    time.sleep(3) """
     motion.setStiffnesses("Head", 0.0)  # Relax head motors
     done = False
     while not done:
@@ -254,12 +199,6 @@ try:
             if gesture in current_scene["gestures"]:
                 current_scene = story_mode.transition(gesture)
                 no_gesture += 1
-                # if not current_scene["gestures"]:  # Ending reached
-                #     print("done 2")
-                #     tts.say(current_scene["passage"])
-                #     done = True
-                #     sys.exit(0)
-                #     break
                 break
                 
             naoImage = video_service.getImageRemote(subscriberId)
