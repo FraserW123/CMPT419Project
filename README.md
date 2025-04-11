@@ -28,6 +28,17 @@ The study involved 20 participants and used both qualitative and quantitative su
 - Video recording and editing tools for demo
 - Linux-based operating system was used to run code that connects to pepper
 
+## Folder Structure
+```bash
+project-root/
+├── analysis/                 # Stores hypothesis testing files and results
+├── consent forms/            # Consent forms of participants
+├── model training/           # Stores training files
+├── pepper.py                 # Code to connect to pepper
+├── story.py                  # Narrative content file
+└── README.md
+```
+
 ## Setup Instructions
 
 1. **Install Dependencies**
@@ -46,3 +57,5 @@ The study involved 20 participants and used both qualitative and quantitative su
 
 5. **Survey**
     Administer the follow-up survey either digitally or in print to gather user feedback
+
+## Self Evaluation
