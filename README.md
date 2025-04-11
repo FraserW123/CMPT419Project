@@ -31,11 +31,14 @@ The study involved 20 participants and used both qualitative and quantitative su
 ## Folder Structure
 ```bash
 project-root/
-├── analysis/                 # Stores hypothesis testing files and results
-├── consent forms/            # Consent forms of participants
-├── model training/           # Stores training files
-├── pepper.py                 # Code to connect to pepper
-├── story.py                  # Narrative content file
+├── analysis/                       # Stores hypothesis testing files and results
+├── consent forms/                  # Consent forms of participants
+├── images/                         # Stores images
+├── model training/                 # Stores training files
+├── arm_gesture_landmark_model.pth  # Gesture classification model
+├── pepper.py                       # Code to connect to pepper
+├── story.py                        # Narrative content file
+├── requirements.txt                # Required libraries
 └── README.md
 ```
 
@@ -58,6 +61,10 @@ project-root/
 5. **Survey**
     Administer the follow-up survey either digitally or in print to gather user feedback.
 
+## Training Setup
+Our main training script `model training/gesture_landmark_classification.ipynb` contains the code used to build and train gesture classification models based on landmark data. During development, we also explored an alternative model which identifies gestures directly from images. However, we ultimately chose to focus on the landmark-based approach due to its higher accuracy and more reliable performance. The image-based model remains a promising direction for future work, particularly with further optimization and a larger dataset.
+
+
 ## Acknowledgements
 
 To connect to the Pepper robot using the qi library, we referenced this stack overflow post:
@@ -73,4 +80,4 @@ We would also like to thank our TA Shay Zhang for onboarding us on how to use th
 
 ## Self Evaluation
 
-Our initial proposal was motivated to create more emotionally intelligent and engaging interactions between humans and robots. We planned to do this by optimizing the story based on player engagement, as well as recommending story paths to players during the game. However, we realized these were plans were overly ambitious given our timeline, so we focused on having the robot perform arm gestures and enabling players to use their own gestures to make choices during the game. This shift allowed us to build a functional and focused prototype that still captured our core goal of enhancing human-robot interactions. 
+Our initial proposal was motivated to create more emotionally intelligent and engaging interactions between humans and robots. We planned to do this by optimizing the story based on player engagement, as well as recommending story paths to players during the game. However, we realized these plans were overly ambitious given our timeline, so we focused on having the robot perform arm gestures and enabling players to use their own gestures to make choices during the game. This shift allowed us to build a functional and focused prototype that still captured our core goal of enhancing human-robot interactions. 
