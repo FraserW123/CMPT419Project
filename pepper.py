@@ -13,7 +13,7 @@ from story import Story
 import torch
 import torch.nn as nn
 
-# Initialize CSV with participant columns (change participant column to just an ID column)
+# Initialize CSV with participant id column
 participant_id = input("Enter participant ID: ").strip() or "unknown"
 
 # CSV 
@@ -65,7 +65,6 @@ print("Connected to Pepper")
 
 # Get services
 video_service = app.session.service("ALVideoDevice")
-#tts = app.session.service("ALTextToSpeech")
 tts = app.session.service("ALTextToSpeech")
 motion = app.session.service("ALMotion")
 autonomous_life = app.session.service("ALAutonomousLife")
@@ -107,7 +106,7 @@ def signal_left(motion):
     motion.setAngles(["LShoulderPitch", "LShoulderRoll"], [-0.75,1], 0.5)
 
 def signal_right(motion):
-    #motion.setStiffnesses("RArm", 1.0)
+    motion.setStiffnesses("RArm", 1.0)
     motion.setAngles(["RShoulderPitch", "RShoulderRoll"], [-0.75,-1], 0.5)
 
 def signal_both(motion):
@@ -163,17 +162,18 @@ no_gesture = 1
 try:
     motion.setStiffnesses("Head", 0.0)  # Relax head motors
     done = False
+    # Main loop for the Pepper application
     while not done:
-        print("Start")
-        print("ok ", current_scene)
         tts.say(current_scene["passage"])
+
+        # Checks if current scene is an ending scene
         if current_scene["prompts"][0] == "end":
-            print("Done 1")
             tts.say("Thank you!")
             done = True
             break
 
-        
+        # Logic to control if pepper performs arm gestures during current scene
+        # (Current: skips every 3rd scene)
         count = 0
         for prompt in current_scene["prompts"]:
             tts.say(prompt)
@@ -192,15 +192,17 @@ try:
         tts.say("Make your choice now")
         time.sleep(2)
 
+        # Gesture detection logic
         gesture = None
         start_time = time.time()
-        while time.time() - start_time < 75:  # 30 second timeout
+        while time.time() - start_time < 75:  # 75 second timeout 
             # Capture frame and detect gesture
             if gesture in current_scene["gestures"]:
                 current_scene = story_mode.transition(gesture)
                 no_gesture += 1
                 break
-                
+            
+            # Captures frame from Pepper's camera if available
             naoImage = video_service.getImageRemote(subscriberId)
             if naoImage is None:
                 logging.error("Failed to capture frame from Pepper's camera")
@@ -216,10 +218,10 @@ try:
             
             # Process with MediaPipe
             results = pose.process(rgb_img)
-            
 
+            # If valid gesture was detected save it to dataset
             if results.pose_landmarks:
-                # Draw landmarks (optional) - adds the landmarks on the camera pop up
+                # Draw landmarks - adds the landmarks on the camera pop up
                 mp_drawing.draw_landmarks(
                     img, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
                 
@@ -231,11 +233,9 @@ try:
                     # Get raw landmark data
                     raw_landmarks = [[lmk.x, lmk.y, lmk.z] for lmk in results.pose_landmarks.landmark]
                     
-                    
                     if gesture and gesture in current_scene["gestures"]:
                         LAST_DETECTION_TIME = current_time
                         response = gesture
-                        print(response)
                         tts.say(response)
                         logging.info(f"Detected gesture: {gesture}")
                         logging.info(f"Pepper responded: {response} to gesture: {gesture}")
@@ -245,7 +245,6 @@ try:
                         csv_writer.writerow([timestamp, participant_id, gesture, str(raw_landmarks)])
                         csv_file.flush()  # Ensure immediate write
 
-                        #break  # Exit after first choice (or modify for multi-step story)
             else: 
                 logging.warning("No landmarks detected in frame")
 
@@ -253,7 +252,7 @@ try:
             cv2.putText(img, f"Gesture: {gesture}", (10, 30), 
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
-            # Display preview (optional)
+            # Display preview
             cv2.imshow('Pepper Camera', img)
             if cv2.waitKey(1) & 0xFF == 27:  # ESC to exit
                 break
